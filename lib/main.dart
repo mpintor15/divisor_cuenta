@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'data/redondeo_exacto.dart';
 import 'domain/calcular_division.dart';
+import 'domain/validar_entrada.dart';
 import 'presentation/divisor_controller.dart';
 import 'presentation/formateador_moneda.dart';
 import 'presentation/lector_numeros.dart';
@@ -10,6 +11,7 @@ import 'presentation/pantalla_divisor.dart';
 void main() {
   final controlador = DivisorController(
     calcular: CalcularDivision(RedondeoExacto()),
+    validar: const ValidarEntrada(),
     formateador: const FormateadorMoneda(),
     lector: const LectorNumeros(),
   );

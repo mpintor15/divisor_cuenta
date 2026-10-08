@@ -37,6 +37,7 @@ class _PantallaDivisorState extends State<PantallaDivisor> {
   @override
   Widget build(BuildContext context) {
     final resultado = widget.controlador.resultado;
+    final error = widget.controlador.error;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Divisor de cuenta')),
@@ -68,6 +69,13 @@ class _PantallaDivisorState extends State<PantallaDivisor> {
               child: const Text('Calcular'),
             ),
             const SizedBox(height: 24),
+            if (error != null)
+              Text(
+                error,
+                key: const Key('error'),
+                style: const TextStyle(color: Colors.red),
+                textAlign: TextAlign.center,
+              ),
             if (resultado != null) ...[
               Text(
                 resultado,

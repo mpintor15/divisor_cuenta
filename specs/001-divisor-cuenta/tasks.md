@@ -77,10 +77,10 @@ Proyecto Flutter único: `lib/` en la raíz del repositorio, con `domain/`, `dat
 
 ### Implementation for User Story 2
 
-- [ ] T013 [US2] Implementar `ValidarEntrada` (recibe `double? monto`, `int? personas`, `double? propina`; devuelve `String?` con el mensaje exacto o `null`; orden: monto, personas, propina; `null` y `NaN` son inválidos) en `lib/domain/validar_entrada.dart` (depende de T003)
-- [ ] T014 [US2] Integrar `ValidarEntrada` en `DivisorController` en `lib/presentation/divisor_controller.dart`: si hay mensaje, se guarda y no se calcula; al recalcular con datos válidos el mensaje desaparece (depende de T010, T013)
-- [ ] T015 [US2] Mostrar el mensaje de error en `PantallaDivisor` y ocultar el resultado mientras haya error, en `lib/presentation/pantalla_divisor.dart` (depende de T011, T014)
-- [ ] T016 [US2] Pasar `ValidarEntrada` al controlador en la composición de `lib/main.dart` (depende de T012, T013)
+- [X] T013 [US2] Implementar `ValidarEntrada` (recibe `double? monto`, `int? personas`, `double? propina`; devuelve `String?` con el mensaje exacto o `null`; orden: monto, personas, propina; `null` y `NaN` son inválidos) en `lib/domain/validar_entrada.dart` (depende de T003)
+- [X] T014 [US2] Integrar `ValidarEntrada` en `DivisorController` en `lib/presentation/divisor_controller.dart`: si hay mensaje, se guarda y no se calcula; al recalcular con datos válidos el mensaje desaparece (depende de T010, T013)
+- [X] T015 [US2] Mostrar el mensaje de error en `PantallaDivisor` y ocultar el resultado mientras haya error, en `lib/presentation/pantalla_divisor.dart` (depende de T011, T014)
+- [X] T016 [US2] Pasar `ValidarEntrada` al controlador en la composición de `lib/main.dart` (depende de T012, T013)
 
 **Checkpoint**: Las historias 1 y 2 funcionan juntas; nunca se muestra un importe con una entrada inválida
 
