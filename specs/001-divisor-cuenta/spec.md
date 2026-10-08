@@ -76,7 +76,7 @@ mensaje exacto y que no se muestra un importe.
 ### User Story 3 - Elegir el modo de redondeo (Priority: P2)
 
 El usuario elige entre dos modos: **exacto** (el importe con dos decimales) o **hacia arriba**
-(el importe sube al entero más cercano). El modo elegido determina el importe mostrado.
+(el importe sube al siguiente entero). El modo elegido determina el importe mostrado.
 
 **Why this priority**: Amplía la utilidad del cálculo (pagar en billetes enteros), pero la app
 sigue siendo útil con el modo exacto.
@@ -117,8 +117,8 @@ difieren según lo esperado.
 - **FR-001**: La app MUST tener una sola pantalla.
 - **FR-002**: El usuario MUST poder ingresar el monto total, el número de personas y el
   porcentaje de propina.
-- **FR-003**: El usuario MUST poder elegir entre dos modos de redondeo: exacto y hacia arriba al
-  entero más cercano.
+- **FR-003**: El usuario MUST poder elegir entre dos modos de redondeo: exacto y hacia arriba (al
+  siguiente entero).
 - **FR-004**: Al tocar "Calcular", la app MUST mostrar cuánto paga cada persona con dos decimales,
   solo como número, sin símbolo de moneda (por ejemplo 27.50).
 - **FR-005**: El importe por persona MUST ser el monto total más la propina aplicada sobre ese
@@ -128,8 +128,8 @@ difieren según lo esperado.
 - **FR-007**: Si el monto no es un número válido o no es mayor que cero (0 o negativo), la app
   MUST mostrar el mensaje "Monto inválido" y MUST NOT mostrar ningún resultado.
 - **FR-008**: En modo exacto la app MUST mostrar el importe redondeado a dos decimales.
-- **FR-009**: En modo hacia arriba la app MUST mostrar el importe subido al entero más cercano
-  hacia arriba, con dos decimales.
+- **FR-009**: En modo hacia arriba la app MUST subir el importe al siguiente entero (si ya es un entero, se
+  mantiene) y mostrarlo con dos decimales. Por ejemplo: 3.33 → 4.00, 2.40 → 3.00, 30.00 → 30.00.
 - **FR-010**: La app MUST funcionar sin conexión: no usa red ni base de datos.
 - **FR-011**: Si la propina está vacía, es negativa o no es un número, la app MUST mostrar el
   mensaje "Propina inválida" y MUST NOT mostrar ningún resultado.

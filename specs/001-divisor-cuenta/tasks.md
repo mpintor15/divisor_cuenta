@@ -9,9 +9,9 @@ description: "Lista de tareas para implementar el divisor de cuenta"
 
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md, quickstart.md
 
-**Tests**: No hay tareas de prueba en esta lista a propósito: `CLAUDE.md` prohíbe modificar `test/` sin
-que el usuario lo pida, y las pruebas (`casos_de_prueba.dart`, `division_test.dart`,
-`pantalla_test.dart`) se crean después, a pedido explícito del usuario. Ver «Notes».
+**Tests**: Las pruebas SÍ forman parte de esta lista (Fase 6), porque la constitución (principio IV) las exige.
+`CLAUDE.md` prohíbe modificar `test/` sin que el usuario lo pida: el usuario las pide expresamente (guía, Parte 9) al
+aprobar esta lista, y esa aprobación queda como la autorización para T001 y T021–T024.
 
 **Organization**: Tareas agrupadas por historia de usuario.
 
@@ -30,7 +30,7 @@ Proyecto Flutter único: `lib/` en la raíz del repositorio, con `domain/`, `dat
 
 **Purpose**: Dejar el proyecto base listo para recibir el código
 
-- [ ] T001 Pedir autorización al usuario y, solo si la da, eliminar `test/widget_test.dart` (plantilla del contador, queda inválida al cambiar `lib/main.dart`; `CLAUDE.md` prohíbe tocar `test/` sin permiso)
+- [ ] T001 Eliminar `test/widget_test.dart` (plantilla del contador: queda inválida al cambiar `lib/main.dart`). Autorizado por el usuario al aprobar esta lista (ver «Tests»)
 - [ ] T002 Crear las carpetas `lib/domain/`, `lib/data/` y `lib/presentation/`
 
 ---
@@ -103,13 +103,25 @@ Proyecto Flutter único: `lib/` en la raíz del repositorio, con `domain/`, `dat
 
 ---
 
-## Phase 6: Polish & Cross-Cutting Concerns
+## Phase 6: Pruebas (autorizadas por el usuario)
+
+**Purpose**: Convertir los 6 escenarios de la spec en pruebas ejecutables (constitución, principio IV)
+
+- [ ] T021 Verificar que existe `test/casos_de_prueba.dart` con los 6 casos de la spec (lo escribe el usuario a mano; el agente NO lo genera)
+- [ ] T022 Crear `test/division_test.dart`: recorre `casos` con un bucle, valida con `ValidarEntrada` y calcula con `CalcularDivision` + la estrategia del modo (`closeTo(esperado, 0.001)`); más una prueba de LSP (el mismo `CalcularDivision` con `RedondeoExacto` y con `RedondeoHaciaArriba`, sin `if` ni cast). Sin widgets (depende de T013, T017, T021)
+- [ ] T023 Crear `test/pantalla_test.dart` con tres pruebas de widget: 100/4/10 → «27.50»; 50 y 0 personas → «Debe haber al menos una persona» sin resultado; «abc» en el monto → «Monto inválido» (depende de T011, T015)
+- [ ] T024 Ejecutar `flutter test` y corregir lo que falle en `lib/`, nunca en `test/` (depende de T022, T023)
+
+---
+
+## Phase 7: Polish & Cross-Cutting Concerns
 
 **Purpose**: Verificar que lo construido cumple la constitución
 
-- [ ] T021 Ejecutar `flutter analyze` y dejarlo sin problemas
-- [ ] T022 Ejecutar las cuatro verificaciones por `grep` de `quickstart.md` (principios I y II de la constitución) y confirmar que dan el resultado esperado
-- [ ] T023 Recorrer a mano la tabla de escenarios de `quickstart.md`
+- [ ] T025 Ejecutar `flutter analyze` y dejarlo sin problemas (depende de T001 y de T021–T023)
+- [ ] T026 Ejecutar las cuatro verificaciones por `grep` de `quickstart.md` (principios I y II de la constitución) y confirmar que dan el resultado esperado
+- [ ] T027 Ejecutar `flutter build apk --debug`
+- [ ] T028 Recorrer a mano la tabla de escenarios de `quickstart.md`
 
 ---
 
@@ -120,7 +132,8 @@ Proyecto Flutter único: `lib/` en la raíz del repositorio, con `domain/`, `dat
 - **Setup (Phase 1)**: sin dependencias
 - **Foundational (Phase 2)**: depende de Setup; bloquea las historias
 - **User Stories (Phase 3+)**: dependen de Foundational. Comparten `divisor_controller.dart`, `pantalla_divisor.dart` y `main.dart`, así que se hacen en orden de prioridad: US1 → US2 → US3
-- **Polish (Phase 6)**: depende de las tres historias
+- **Pruebas (Phase 6)**: depende de las tres historias
+- **Polish (Phase 7)**: depende de las pruebas y de T001: sin T001 `flutter analyze` falla
 
 ### User Story Dependencies
 
@@ -176,7 +189,6 @@ Task: "Implementar LectorNumeros en lib/presentation/lector_numeros.dart"
 ## Notes
 
 - [P] = archivos distintos, sin dependencias
-- **Pruebas fuera de esta lista**: la constitución (principio IV) exige que los criterios de aceptación sean pruebas ejecutables. Esta lista no las incluye porque `CLAUDE.md` prohíbe tocar `test/` sin pedido explícito; se crean a pedido del usuario (`casos_de_prueba.dart`, `division_test.dart`, `pantalla_test.dart`).
-- **T001 requiere permiso**: si el usuario no autoriza eliminar `test/widget_test.dart`, `flutter analyze` fallará hasta que las pruebas reales lo reemplacen.
+- Las pruebas se hacen en la Fase 6 con autorización explícita del usuario (ver «Tests»).
 - Hacer commit después de cada tarea o grupo lógico
 - `divisor_controller.dart`, `pantalla_divisor.dart` y `main.dart` se editan en varias historias; no marcar esas tareas como [P]
