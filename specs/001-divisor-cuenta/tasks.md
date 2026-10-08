@@ -107,10 +107,10 @@ Proyecto Flutter único: `lib/` en la raíz del repositorio, con `domain/`, `dat
 
 **Purpose**: Convertir los 6 escenarios de la spec en pruebas ejecutables (constitución, principio IV)
 
-- [ ] T021 Verificar que existe `test/casos_de_prueba.dart` con los 6 casos de la spec (lo escribe el usuario a mano; el agente NO lo genera)
-- [ ] T022 Crear `test/division_test.dart`: recorre `casos` con un bucle, valida con `ValidarEntrada` y calcula con `CalcularDivision` + la estrategia del modo (`closeTo(esperado, 0.001)`); más una prueba de LSP (el mismo `CalcularDivision` con `RedondeoExacto` y con `RedondeoHaciaArriba`, sin `if` ni cast). Sin widgets (depende de T013, T017, T021)
-- [ ] T023 Crear `test/pantalla_test.dart` con tres pruebas de widget: 100/4/10 → «27.50»; 50 y 0 personas → «Debe haber al menos una persona» sin resultado; «abc» en el monto → «Monto inválido» (depende de T011, T015)
-- [ ] T024 Ejecutar `flutter test` y corregir lo que falle en `lib/`, nunca en `test/` (depende de T022, T023)
+- [X] T021 Verificar que existe `test/casos_de_prueba.dart` con los 6 casos de la spec (lo escribe el usuario a mano; el agente NO lo genera)
+- [X] T022 Crear `test/division_test.dart`: recorre `casos` con un bucle, valida con `ValidarEntrada` y calcula con `CalcularDivision` + la estrategia del modo (`closeTo(esperado, 0.001)`); más una prueba de LSP (el mismo `CalcularDivision` con `RedondeoExacto` y con `RedondeoHaciaArriba`, sin `if` ni cast). Sin widgets (depende de T013, T017, T021)
+- [X] T023 Crear `test/pantalla_test.dart` con tres pruebas de widget: 100/4/10 → «27.50»; 50 y 0 personas → «Debe haber al menos una persona» sin resultado; «abc» en el monto → «Monto inválido» (depende de T011, T015)
+- [X] T024 Ejecutar `flutter test` y corregir lo que falle en `lib/`, nunca en `test/` (depende de T022, T023)
 
 ---
 
@@ -118,9 +118,9 @@ Proyecto Flutter único: `lib/` en la raíz del repositorio, con `domain/`, `dat
 
 **Purpose**: Verificar que lo construido cumple la constitución
 
-- [ ] T025 Ejecutar `flutter analyze` y dejarlo sin problemas (depende de T001 y de T021–T023)
-- [ ] T026 Ejecutar las cuatro verificaciones por `grep` de `quickstart.md` (principios I y II de la constitución) y confirmar que dan el resultado esperado
-- [ ] T027 Ejecutar `flutter build apk --debug`
+- [X] T025 Ejecutar `flutter analyze` y dejarlo sin problemas (depende de T001 y de T021–T023)
+- [X] T026 Ejecutar las cuatro verificaciones por `grep` de `quickstart.md` (principios I y II de la constitución) y confirmar que dan el resultado esperado
+- [X] T027 Ejecutar `flutter build apk --debug`
 - [ ] T028 Recorrer a mano la tabla de escenarios de `quickstart.md`
 
 ---
