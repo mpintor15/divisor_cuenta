@@ -1,50 +1,50 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# divisor_cuenta Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Calidad de código: SOLID
+El código MUST respetar los cinco principios SOLID, y cada uno MUST poder comprobarse:
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+- **SRP**: una clase, una razón de cambio. El cálculo MUST NOT validar ni formatear.
+  Verificación: `grep -n -E "toStringAsFixed|inválido|al menos una persona" lib/domain/calcular_division.dart`
+  no devuelve nada.
+- **OCP**: agregar una nueva regla de redondeo MUST NOT obligar a editar las clases que ya existen;
+  basta con crear una clase nueva que implemente la interfaz.
+- **LSP**: cualquier implementación de una interfaz MUST poder sustituir a otra sin que quien la
+  usa pregunte de qué tipo es.
+  Verificación: `grep -n -E "is Redondeo|as Redondeo" lib/domain/calcular_division.dart` no devuelve nada.
+- **ISP**: las interfaces MUST ser pequeñas; nadie depende de métodos que no usa.
+- **DIP**: `presentation` MUST depender de abstracciones del `domain`, nunca de clases concretas
+  de `data`.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Arquitectura en tres capas
+El proyecto MUST organizarse en `lib/presentation`, `lib/domain` y `lib/data`, con la regla de
+dependencia `presentation -> domain <- data`.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+- `lib/domain/` MUST ser Dart puro: no importa `package:flutter`.
+  Verificación: `grep -rn "package:flutter" lib/domain/` no devuelve nada.
+- `main.dart` MUST ser el ÚNICO lugar donde se instancian implementaciones concretas.
+  Verificación: `grep -rn -E "RedondeoExacto\(\)|RedondeoHaciaArriba\(\)" lib/` solo aparece en
+  `lib/main.dart`.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. Seguridad
+Los secretos y las API keys MUST NOT guardarse en el repositorio.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### IV. Calidad y pruebas
+Toda funcionalidad crítica MUST tener pruebas. Los criterios de aceptación de cada spec MUST
+convertirse en pruebas ejecutables.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### V. Regla de la materia
+Toda función generada por el agente MUST poder ser explicada por el estudiante: qué hace, por qué
+existe, qué recibe, qué devuelve y qué errores produce.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+Esta constitución prevalece sobre cualquier otra práctica del proyecto. Una enmienda MUST
+registrarse en este archivo con una nueva versión (MAJOR: se elimina o redefine un principio;
+MINOR: se agrega un principio o se amplía materialmente; PATCH: aclaraciones de redacción).
+Antes de dar por terminado un cambio MUST ejecutarse `flutter analyze` y `flutter test`, y las
+verificaciones por `grep` descritas en los principios I y II. La guía de trabajo del agente en
+tiempo de ejecución está en `CLAUDE.md`.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-10-08 | **Last Amended**: 2026-10-08
