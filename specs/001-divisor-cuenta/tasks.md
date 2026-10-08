@@ -30,8 +30,8 @@ Proyecto Flutter único: `lib/` en la raíz del repositorio, con `domain/`, `dat
 
 **Purpose**: Dejar el proyecto base listo para recibir el código
 
-- [ ] T001 Eliminar `test/widget_test.dart` (plantilla del contador: queda inválida al cambiar `lib/main.dart`). Autorizado por el usuario al aprobar esta lista (ver «Tests»)
-- [ ] T002 Crear las carpetas `lib/domain/`, `lib/data/` y `lib/presentation/`
+- [X] T001 Eliminar `test/widget_test.dart` (plantilla del contador: queda inválida al cambiar `lib/main.dart`). Autorizado por el usuario al aprobar esta lista (ver «Tests»)
+- [X] T002 Crear las carpetas `lib/domain/`, `lib/data/` y `lib/presentation/`
 
 ---
 
@@ -41,9 +41,9 @@ Proyecto Flutter único: `lib/` en la raíz del repositorio, con `domain/`, `dat
 
 **⚠️ CRITICAL**: Ninguna historia puede empezar hasta terminar esta fase
 
-- [ ] T003 [P] Crear la entidad `Cuenta` (monto, personas, propina) en `lib/domain/cuenta.dart`
-- [ ] T004 [P] Crear la entidad `Resultado` (importePorPersona) en `lib/domain/resultado.dart`
-- [ ] T005 [P] Crear la interfaz `EstrategiaRedondeo` con un solo método `double redondear(double valor)` en `lib/domain/estrategia_redondeo.dart`
+- [X] T003 [P] Crear la entidad `Cuenta` (monto, personas, propina) en `lib/domain/cuenta.dart`
+- [X] T004 [P] Crear la entidad `Resultado` (importePorPersona) en `lib/domain/resultado.dart`
+- [X] T005 [P] Crear la interfaz `EstrategiaRedondeo` con un solo método `double redondear(double valor)` en `lib/domain/estrategia_redondeo.dart`
 
 **Checkpoint**: `domain` básico listo, sin importar `package:flutter`
 
@@ -57,13 +57,13 @@ Proyecto Flutter único: `lib/` en la raíz del repositorio, con `domain/`, `dat
 
 ### Implementation for User Story 1
 
-- [ ] T006 [P] [US1] Implementar `RedondeoExacto` (redondea a dos decimales) en `lib/data/redondeo_exacto.dart`
-- [ ] T007 [US1] Implementar `CalcularDivision` (recibe una `EstrategiaRedondeo` por constructor; aplica `monto * (1 + propina / 100) / personas` y la estrategia) en `lib/domain/calcular_division.dart` (depende de T003, T004, T005)
-- [ ] T008 [P] [US1] Implementar `FormateadorMoneda` (dos decimales con punto, sin símbolo de moneda) en `lib/presentation/formateador_moneda.dart`
-- [ ] T009 [P] [US1] Implementar `LectorNumeros` (texto → `double?` / `int?`, acepta punto y coma, `null` si no es válido o si personas es decimal) en `lib/presentation/lector_numeros.dart`
-- [ ] T010 [US1] Implementar `DivisorController` (recibe sus dependencias por constructor; lee los campos, calcula y expone el resultado) en `lib/presentation/divisor_controller.dart` (depende de T007, T008, T009)
-- [ ] T011 [US1] Implementar `PantallaDivisor` (campos de monto, personas y propina, botón «Calcular» y el resultado en un `Text` propio que contiene solo el número, con «por persona» en otro `Text`) en `lib/presentation/pantalla_divisor.dart` (depende de T010)
-- [ ] T012 [US1] Componer en `lib/main.dart`: crear `CalcularDivision(RedondeoExacto())`, el controlador y `PantallaDivisor`; único lugar donde se instancian implementaciones concretas (depende de T006, T007, T011)
+- [X] T006 [P] [US1] Implementar `RedondeoExacto` (redondea a dos decimales) en `lib/data/redondeo_exacto.dart`
+- [X] T007 [US1] Implementar `CalcularDivision` (recibe una `EstrategiaRedondeo` por constructor; aplica `monto * (1 + propina / 100) / personas` y la estrategia) en `lib/domain/calcular_division.dart` (depende de T003, T004, T005)
+- [X] T008 [P] [US1] Implementar `FormateadorMoneda` (dos decimales con punto, sin símbolo de moneda) en `lib/presentation/formateador_moneda.dart`
+- [X] T009 [P] [US1] Implementar `LectorNumeros` (texto → `double?` / `int?`, acepta punto y coma, `null` si no es válido o si personas es decimal) en `lib/presentation/lector_numeros.dart`
+- [X] T010 [US1] Implementar `DivisorController` (recibe sus dependencias por constructor; lee los campos, calcula y expone el resultado) en `lib/presentation/divisor_controller.dart` (depende de T007, T008, T009)
+- [X] T011 [US1] Implementar `PantallaDivisor` (campos de monto, personas y propina, botón «Calcular» y el resultado en un `Text` propio que contiene solo el número, con «por persona» en otro `Text`) en `lib/presentation/pantalla_divisor.dart` (depende de T010)
+- [X] T012 [US1] Componer en `lib/main.dart`: crear `CalcularDivision(RedondeoExacto())`, el controlador y `PantallaDivisor`; único lugar donde se instancian implementaciones concretas (depende de T006, T007, T011)
 
 **Checkpoint**: La historia 1 funciona sola: calcula en modo exacto y entiende la coma decimal
 
