@@ -94,10 +94,10 @@ Proyecto Flutter único: `lib/` en la raíz del repositorio, con `domain/`, `dat
 
 ### Implementation for User Story 3
 
-- [ ] T017 [P] [US3] Implementar `RedondeoHaciaArriba` (redondea a dos decimales y luego aplica `ceil`, para evitar ruido de coma flotante) en `lib/data/redondeo_hacia_arriba.dart`
-- [ ] T018 [US3] Hacer que `DivisorController` reciba un `CalcularDivision` por modo y exponga el modo elegido (por defecto, exacto) en `lib/presentation/divisor_controller.dart` (depende de T014)
-- [ ] T019 [US3] Agregar a `PantallaDivisor` el selector de modo de redondeo; cambiarlo no recalcula hasta tocar «Calcular», en `lib/presentation/pantalla_divisor.dart` (depende de T015, T018)
-- [ ] T020 [US3] Componer los dos modos en `lib/main.dart` (un `CalcularDivision` por estrategia) y pasarlos al controlador (depende de T016, T017, T018)
+- [X] T017 [P] [US3] Implementar `RedondeoHaciaArriba` (aplica `ceil(valor - 1e-9)`: sube al siguiente entero y el margen absorbe el ruido de coma flotante, por ejemplo 28.000000000000004 → 28) en `lib/data/redondeo_hacia_arriba.dart`
+- [X] T018 [US3] Hacer que `DivisorController` reciba un `CalcularDivision` por modo y exponga el modo elegido (por defecto, exacto) en `lib/presentation/divisor_controller.dart` (depende de T014)
+- [X] T019 [US3] Agregar a `PantallaDivisor` el selector de modo de redondeo; cambiarlo no recalcula hasta tocar «Calcular», en `lib/presentation/pantalla_divisor.dart` (depende de T015, T018)
+- [X] T020 [US3] Componer los dos modos en `lib/main.dart` (un `CalcularDivision` por estrategia) y pasarlos al controlador (depende de T016, T017, T018)
 
 **Checkpoint**: Las tres historias funcionan; agregar otro redondeo no exige editar clases existentes, salvo una línea en `main.dart`
 

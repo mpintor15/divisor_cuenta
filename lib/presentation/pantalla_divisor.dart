@@ -63,6 +63,18 @@ class _PantallaDivisorState extends State<PantallaDivisor> {
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               decoration: const InputDecoration(labelText: 'Propina (%)'),
             ),
+            const SizedBox(height: 16),
+            SegmentedButton<String>(
+              key: const Key('modo'),
+              segments: [
+                for (final m in widget.controlador.modos)
+                  ButtonSegment<String>(value: m, label: Text(m)),
+              ],
+              selected: {widget.controlador.modo},
+              onSelectionChanged: (seleccion) {
+                setState(() => widget.controlador.modo = seleccion.first);
+              },
+            ),
             const SizedBox(height: 24),
             FilledButton(
               onPressed: _calcular,

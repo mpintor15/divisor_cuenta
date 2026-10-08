@@ -3,14 +3,21 @@
 No quedaron `NEEDS CLARIFICATION` en el contexto técnico; este documento deja constancia de las
 decisiones de diseño que no estaban escritas en la spec.
 
-## Decisión 1: el redondeo hacia arriba se aplica sobre el valor ya redondeado a centavos
+## Decisión 1: el redondeo hacia arriba es `ceil` con un margen contra el ruido de coma flotante
 
-- **Decisión**: `RedondeoHaciaArriba` primero redondea el importe a dos decimales y luego aplica
-  `ceil`. `RedondeoExacto` solo redondea a dos decimales.
-- **Razón**: en `double`, `30 * 1.10 / 3` da `11.000000000000002`. Un `ceil` directo daría 12, y el
-  usuario esperaría 11. Redondear primero a centavos elimina ese ruido de coma flotante.
-- **Alternativas**: `ceil` directo (descartada: falla con ruido de coma flotante); trabajar en
-  enteros de centavos (descartada: más complejo de lo que pide una pantalla con una división).
+- **Decisión**: `RedondeoHaciaArriba` aplica `ceil` a `valor - 1e-9`. `RedondeoExacto` redondea al
+  centavo (dos decimales).
+- **Razón**: en `double`, `25 * (1 + 12/100) / 1` da `28.000000000000004` en lugar de `28`; un `ceil`
+  directo daría 29, y el usuario esperaría 28. Ocurre en 1.313 de 26.787 combinaciones (monto
+  1–2000, personas 1–12, propina 0–50 %) cuyo resultado exacto es un entero. El margen de `1e-9`
+  absorbe ese ruido sin cambiar los valores reales: `1.0028…` sigue subiendo a 2 (FR-009, «siguiente
+  entero»).
+- **Alternativas**: `ceil` directo (descartada: falla con ese ruido); redondear primero al centavo y
+  luego `ceil` (descartada: `6 / 7 personas / 17 %` da `1.0028…`, que quedaría en 1.00 y no cubriría
+  la cuenta; error de diseño detectado en la implementación); trabajar en enteros de centavos
+  (descartada: más complejo de lo que pide una pantalla con una división).
+- **Corrección**: una versión anterior de esta decisión usaba «redondear al centavo y luego `ceil`» y
+  el ejemplo `30 * 1.10 / 3`, que en realidad da `11.0`. Ambos eran incorrectos.
 
 ## Decisión 2: la validación devuelve el mensaje, y el orden de las reglas es fijo
 

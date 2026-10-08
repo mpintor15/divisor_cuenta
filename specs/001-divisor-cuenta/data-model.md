@@ -24,7 +24,7 @@ Un solo método: `double redondear(double valor)`.
 | Implementación | Capa | Comportamiento |
 |---|---|---|
 | `RedondeoExacto` | data | redondea a dos decimales |
-| `RedondeoHaciaArriba` | data | redondea a dos decimales y luego sube al entero (`ceil`) |
+| `RedondeoHaciaArriba` | data | sube al siguiente entero: `ceil(valor - 1e-9)`; el margen absorbe el ruido de coma flotante |
 
 ## Reglas de validación (ValidarEntrada)
 
