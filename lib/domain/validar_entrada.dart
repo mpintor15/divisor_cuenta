@@ -3,6 +3,9 @@
 class ValidarEntrada {
   const ValidarEntrada();
 
+  /// Porcentaje máximo de propina permitido (el 100 % exacto sí vale).
+  static const _propinaMaxima = 100;
+
   String? call({
     required double? monto,
     required int? personas,
@@ -14,7 +17,7 @@ class ValidarEntrada {
     if (propina == null || propina.isNaN || propina < 0) {
       return 'Propina inválida';
     }
-    if (propina > 100) return 'La propina no puede superar el 100%';
+    if (propina > _propinaMaxima) return 'La propina no puede superar el 100%';
     return null;
   }
 }
