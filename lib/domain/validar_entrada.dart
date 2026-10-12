@@ -14,6 +14,7 @@ class ValidarEntrada {
     if (propina == null || propina.isNaN || propina < 0) {
       return 'Propina inválida';
     }
+    if (propina > 100) return 'La propina no puede superar el 100%';
     return null;
   }
 }
