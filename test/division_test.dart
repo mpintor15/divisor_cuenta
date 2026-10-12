@@ -43,6 +43,20 @@ void main() {
     }
   });
 
+  group('propina máxima', () {
+    test('propina 150 supera el 100% y devuelve error', () {
+      final error = validar(monto: 100, personas: 4, propina: 150);
+
+      expect(error, 'La propina no puede superar el 100%');
+    });
+
+    test('propina exactamente 100 está permitida', () {
+      final error = validar(monto: 100, personas: 4, propina: 100);
+
+      expect(error, isNull);
+    });
+  });
+
   test('LSP: el mismo CalcularDivision funciona con cualquier estrategia', () {
     const cuenta = Cuenta(monto: 10.00, personas: 3, propina: 0);
 
