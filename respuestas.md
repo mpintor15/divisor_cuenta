@@ -1,7 +1,8 @@
 # Respuestas — Vibe coding vs. SDD con GitHub Spec Kit
 
-> **Antes de entregar, completar los puntos marcados «COMPLETAR»**: son las pruebas manuales en el
-> teléfono, que no se pudieron ejecutar al redactar este documento.
+> **Nota sobre las pruebas «a mano».** Los escenarios se recorrieron con la interfaz real de cada rama,
+> pero mediante pruebas de widget temporales (no incluidas en el repositorio), no tocando la app en un
+> teléfono, porque el dispositivo no se pudo conectar. Los resultados son los que esas pruebas imprimieron.
 
 ## 1. Métricas, agente y decisiones
 
@@ -13,7 +14,7 @@ Las dos ramas salen del mismo commit inicial `3ce3bb7`.
 | | rama vibe | rama sdd |
 |---|---|---|
 | Iteraciones | **0** (solo el prompt inicial) | **3** (ver regla de conteo abajo) |
-| Casos de aceptación que cumple (0–6) | No ejecutado a mano. Por lectura del código: 3, 4 y 6 no tienen equivalente en su modelo; 1, 2 y 5 solo se reproducen de forma indirecta. COMPLETAR si se prueba | **6 de 6** en `flutter test`. Prueba manual en el teléfono: COMPLETAR |
+| Casos de aceptación que cumple (0–6) | **3 de 6** (el 1, el 2 y el 5), y solo de forma indirecta: hay que armar personas e ítems y bajar el IVA a 0 %. El 3, el 4 y el 6 no se cumplen (ver pregunta 2) | **6 de 6** en `flutter test`; además, 7 de 7 recorridos con la interfaz (incluye la coma decimal) |
 | Pruebas automatizadas que pasan | 2 (las escribió el agente) | **10** (6 escenarios, 1 de LSP, 3 de widget) |
 | Archivos en `lib/` | 3 | 12 |
 | Líneas de código en `lib/` | 340 | 294 |
@@ -60,10 +61,22 @@ no tiene `domain/` ni `data/`, ni las clases `CalcularDivision`, `ValidarEntrada
 el cálculo está dentro de `Bill` y la interfaz formatea sus propios importes. Para que esas pruebas
 corrieran habría que crear esas clases y mover el cálculo, es decir, reestructurar la rama entera.
 
-**Los seis escenarios a mano en `vibe`:** COMPLETAR (ejecutar la app de la rama `vibe` y anotar qué
-muestra en cada caso). Por lectura del código se espera que 3, 4 y 6 no sean posibles (no hay
-validación de monto, ni campo de monto total, ni modo de redondeo), pero eso hay que comprobarlo
-ejecutando la app.
+**Los seis escenarios en `vibe`** (recorridos con la interfaz real; de las tarjetas de resultado se
+leyeron las dos primeras personas, que son las que la lista construye en pantalla):
+
+| Escenario | Qué muestra `vibe` | ¿Cumple? |
+|---|---|---|
+| 1. 100 / 4 personas / 10 % | `$27.50` por persona, pero solo tras armar 4 personas y un ítem de 100 y bajar el IVA de su 15 % por defecto a 0 % | Sí, indirectamente |
+| 2. 90 / 3 personas / 0 % | `$30.00` (3 personas, ítem de 90, IVA 0 %, propina 0 %) | Sí, indirectamente |
+| 3. 0 personas | No hay mensaje «Debe haber al menos una persona». Al tocar «Ítem» sin personas aparece «Primero agrega a las personas», y el resultado dice «Agrega personas e ítems para ver el resultado.» | No |
+| 4. monto «abc» | El diálogo del ítem se queda abierto sin ningún mensaje y no se crea el ítem; no aparece «Monto inválido» | No |
+| 5. 10 / 3 personas / 0 %, exacto | `$3.33` | Sí, indirectamente |
+| 6. 10 / 3 personas / 0 %, hacia arriba | No existe selector de modo; muestra `$3.33`, no 4.00 | No |
+
+Resultado: `vibe` cumple 3 de 6, y los tres que cumple son un cálculo que su modelo hace por otra vía. Los
+que no cumple (3, 4 y 6) son justo los que la frase inicial no pedía: validación, mensajes y un modo
+de redondeo. Los mismos escenarios en `sdd`, con su interfaz: `27.50`, `30.00`, «Debe haber al menos una
+persona», «Monto inválido», `3.33`, `4.00`, y `10,50` (con coma) da `10.50`; 7 de 7.
 
 ## 3. Verificaciones de SOLID (Parte 9.5)
 
@@ -144,4 +157,5 @@ va a mantener y no tiene riesgos que justifiquen la ceremonia de constitución, 
 - Los skills `/speckit-*` no se pudieron invocar como comandos en la sesión de trabajo. Se leyó cada
   `SKILL.md` y se aplicó a mano, con los mismos artefactos como resultado.
 - La sesión de `sdd` ya conocía la especificación de la guía; la de `vibe` fue una sesión limpia.
-- `/speckit-converge` y la tarea T028 (recorrer los escenarios a mano) no se ejecutaron.
+- `/speckit-converge` no se ejecutó. La tarea T028 (recorrer los escenarios a mano) se hizo con pruebas
+  de widget temporales y no en el teléfono.
